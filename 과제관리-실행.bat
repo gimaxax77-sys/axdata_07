@@ -18,6 +18,24 @@ if errorlevel 1 (
   exit /b 1
 )
 
+REM Git 버전/상태 확인 후 최신 코드 받기 (실행할 때마다)
+where git >nul 2>nul
+if errorlevel 1 (
+  echo [알림] Git 이 설치되어 있지 않아 업데이트 확인을 건너뜁니다.
+) else (
+  echo [Git] 버전 확인:
+  git --version
+  if exist ".git\" (
+    echo [Git] 현재 상태:
+    git status -sb
+    echo [Git] 최신 코드를 받는 중...
+    git pull
+  ) else (
+    echo [알림] Git 으로 받은 폴더가 아니어서 업데이트를 건너뜁니다. ^(ZIP 으로 받으신 경우^)
+  )
+)
+echo.
+
 REM 1) 최초 실행 시 필요한 패키지 설치
 if not exist "node_modules\" (
   echo [1/3] 최초 실행입니다. 필요한 패키지를 설치합니다. 잠시 기다려 주세요...
