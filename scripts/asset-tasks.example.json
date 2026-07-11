@@ -1,0 +1,6 @@
+[
+  { "title": "무협 kael 초상", "category": "아트", "priority": "high", "description": "assets/char/wuxia/kael.png · 512 투명 PNG · 화염검객" },
+  { "title": "무협 luna 초상", "category": "아트", "priority": "high", "description": "assets/char/wuxia/luna.png · 월광의선" },
+  { "title": "무협 gwen 전투 스프라이트", "category": "아트", "priority": "medium", "description": "assets/units/wuxia/gwen/ · idle/attack 시트" },
+  { "title": "무림 메인 테마 BGM", "category": "사운드", "priority": "low", "description": "메인 화면 30초 루프" }
+]
