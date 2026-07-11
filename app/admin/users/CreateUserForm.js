@@ -1,4 +1,5 @@
 "use client";
+// 계정 생성 입력 폼 (생성 성공 시 폼 초기화)
 
 import { useActionState, useEffect, useRef } from "react";
 import { createUserAction } from "./actions";

@@ -1,4 +1,5 @@
 "use server";
+// 사용자 계정 관리 서버 액션 (운영자 전용: 생성·권한변경·삭제)
 
 import { revalidatePath } from "next/cache";
 import { getCurrentUser, hashPassword, isOperator } from "@/lib/auth";

@@ -1,4 +1,5 @@
 "use client";
+// 로그인 입력 폼 (오류 메시지·전송중 상태 표시)
 
 import { useActionState } from "react";
 import { loginAction } from "./actions";

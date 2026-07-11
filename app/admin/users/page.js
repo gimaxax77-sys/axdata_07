@@ -1,3 +1,4 @@
+// 사용자 관리 화면 (운영자 전용: 계정 목록·권한변경·삭제)
 import { redirect } from "next/navigation";
 import { getCurrentUser, isOperator } from "@/lib/auth";
 import { listUsers } from "@/lib/queries";

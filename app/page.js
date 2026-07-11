@@ -1,3 +1,4 @@
+// 대시보드 (과제 목록·상태별 통계·검색/필터)
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";

@@ -1,3 +1,4 @@
+// 상단 내비게이션 바 (로그인 사용자·권한별 메뉴 표시)
 import Link from "next/link";
 import { ROLE_LABEL } from "@/lib/constants";
 

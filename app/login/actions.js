@@ -1,4 +1,5 @@
 "use server";
+// 로그인 인증 처리 (아이디·비밀번호 확인 후 세션 발급)
 
 import { redirect } from "next/navigation";
 import { getUserByUsername } from "@/lib/queries";

@@ -1,3 +1,4 @@
+// 로그인 화면 (이미 로그인 상태면 대시보드로 이동)
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import LoginForm from "./LoginForm";

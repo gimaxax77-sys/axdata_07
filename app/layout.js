@@ -1,3 +1,4 @@
+// 전체 페이지 공통 레이아웃 (HTML 뼈대·메타데이터)
 import "./globals.css";
 
 export const metadata = {

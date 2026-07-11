@@ -1,3 +1,4 @@
+// 상태·우선순위를 색상 배지로 표시하는 컴포넌트
 import { STATUS_LABEL, PRIORITY_LABEL } from "@/lib/constants";
 
 export function StatusBadge({ status }) {

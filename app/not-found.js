@@ -1,3 +1,4 @@
+// 404 페이지 (없는 경로·과제 접근 시 표시)
 import Link from "next/link";
 
 export default function NotFound() {

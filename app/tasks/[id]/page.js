@@ -1,3 +1,4 @@
+// 과제 상세 화면 (정보 표시·상태 빠른 변경·삭제)
 import Link from "next/link";
 import { redirect, notFound } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";

@@ -1,4 +1,5 @@
 "use client";
+// 과제 입력 폼 (신규·수정 공용, 링크 여러 개 추가/삭제 지원)
 
 import { useActionState, useState } from "react";
 import { useRouter } from "next/navigation";
