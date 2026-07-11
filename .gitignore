@@ -1,0 +1,15 @@
+/node_modules
+/.next
+/out
+/build
+*.log
+npm-debug.log*
+
+# Local database & uploads (runtime data)
+/data/*.db
+/data/*.db-*
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+.DS_Store
+.env*.local
