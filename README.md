@@ -33,6 +33,27 @@ npm run build && npm start
 | 운영자 | `operator` | `admin1234`    |
 | 매니저 | `manager`  | `manager1234`  |
 
+## 윈도우에서 실행 (더블클릭)
+
+`과제관리-실행.bat` 을 더블클릭하면 됩니다. 시작할 때 git 버전·상태를 확인하고 자동으로 `git pull` 한 뒤 개발 서버를 띄웁니다.
+
+## 애셋 임포터 (게임 제작 목록 → 과제)
+
+게임(`axdata_01`)의 "만들어야 할 애셋 목록(JSON)"을 이 과제 관리 시스템에 과제로 자동 등록하는 연결 다리입니다.
+
+```bash
+node scripts/import-asset-tasks.mjs <목록.json>
+```
+
+입력 JSON은 객체 배열이며, 같은 제목의 과제가 이미 있으면 건너뜁니다(중복 방지). 등록자는 운영자 계정입니다.
+
+```json
+[
+  { "title": "무협 kael 초상", "category": "아트", "priority": "high",
+    "description": "assets/char/wuxia/kael.png (512 투명)" }
+]
+```
+
 ## 프로젝트 구조
 
 ```
@@ -54,6 +75,8 @@ lib/
   queries.js              과제·사용자 데이터 접근
   constants.js            상태/우선순위/권한 상수·한글 라벨
 scripts/seed.mjs          초기 데이터 시드
+scripts/import-asset-tasks.mjs  애셋 제작 목록(JSON) → 과제 임포터
+과제관리-실행.bat         윈도우 더블클릭 실행(자동 pull + dev 서버)
 data/app.db               런타임 SQLite 파일 (git 제외)
 ```
 
