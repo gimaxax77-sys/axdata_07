@@ -6,24 +6,37 @@ import { getTask } from "@/lib/queries";
 import { STATUS, STATUS_LABEL } from "@/lib/constants";
 import Nav from "@/components/Nav";
 import { StatusBadge, PriorityBadge } from "@/components/Badges";
-import { deleteTaskAction, setStatusAction } from "../actions";
+import {
+  deleteTaskAction,
+  setStatusAction,
+  uploadFileAction,
+  deleteFileAction,
+} from "../actions";
 
 export const dynamic = "force-dynamic";
+
+const UPLOAD_ERROR = {
+  nofile: "파일을 선택하세요.",
+  type: "이미지 파일만 올릴 수 있습니다.",
+  size: "파일이 너무 큽니다 (최대 8MB).",
+};
 
 function isOverdue(task) {
   if (!task.due_date || task.status === "done") return false;
   return task.due_date < new Date().toISOString().slice(0, 10);
 }
 
-export default async function TaskDetail({ params }) {
+export default async function TaskDetail({ params, searchParams }) {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
   const { id } = await params;
+  const { e } = (await searchParams) || {};
   const task = getTask(Number(id));
   if (!task) notFound();
 
-  const links = (task.links || []).filter((l) => l.url);
+  const files = (task.links || []).filter((l) => l.kind === "file" && l.url);
+  const links = (task.links || []).filter((l) => l.kind !== "file" && l.url);
 
   return (
     <>
@@ -85,7 +98,56 @@ export default async function TaskDetail({ params }) {
 
           <div>
             <div className="muted" style={{ fontSize: 13, marginBottom: 6 }}>
-              첨부 / 링크
+              아트 파일 (이미지 업로드)
+            </div>
+            {files.length > 0 && (
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 10 }}>
+                {files.map((f) => (
+                  <div key={f.id} style={{ width: 128 }}>
+                    <a href={f.url} target="_blank" rel="noreferrer">
+                      <img
+                        src={f.url}
+                        alt={f.label || ""}
+                        style={{
+                          width: 128,
+                          height: 128,
+                          objectFit: "cover",
+                          borderRadius: 8,
+                          border: "1px solid #e2e2e2",
+                          background:
+                            "repeating-conic-gradient(#f0f0f0 0% 25%, #fff 0% 50%) 50% / 16px 16px",
+                        }}
+                      />
+                    </a>
+                    <div className="muted" style={{ fontSize: 11, wordBreak: "break-all", marginTop: 4 }}>
+                      {f.label}
+                    </div>
+                    <form action={deleteFileAction}>
+                      <input type="hidden" name="id" value={task.id} />
+                      <input type="hidden" name="link_id" value={f.id} />
+                      <input type="hidden" name="url" value={f.url} />
+                      <button className="btn small danger">삭제</button>
+                    </form>
+                  </div>
+                ))}
+              </div>
+            )}
+            {e && UPLOAD_ERROR[e] && (
+              <p className="overdue" style={{ margin: "0 0 6px" }}>{UPLOAD_ERROR[e]}</p>
+            )}
+            <form
+              action={uploadFileAction}
+              style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}
+            >
+              <input type="hidden" name="id" value={task.id} />
+              <input type="file" name="file" accept="image/*" required />
+              <button className="btn small primary">업로드</button>
+            </form>
+          </div>
+
+          <div>
+            <div className="muted" style={{ fontSize: 13, marginBottom: 6 }}>
+              링크
             </div>
             {links.length === 0 ? (
               <p className="muted" style={{ margin: 0 }}>없음</p>
