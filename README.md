@@ -54,6 +54,27 @@ node scripts/import-asset-tasks.mjs <목록.json>
 ]
 ```
 
+### 로스터 자동 연결 (코어시스템 → 아트팩 → 과제)
+
+목록을 손으로 쓰지 않고, 게임 코어시스템의 **캐릭터 로스터**에서 아직 아트가 없는
+초상만 자동으로 뽑아 과제로 바로 등록합니다. 게임 폴더(`axdata_01`)를 옆에 두고 실행합니다.
+
+```bash
+node scripts/gen-asset-tasks.mjs [axdata_01경로]   # 기본값: ../axdata_01
+```
+
+동작 방식은 이렇습니다.
+
+- 코어시스템(`system/concepts`)의 로스터가 "어떤 초상이 필요한지"의 원본입니다(컨셉 `fantasy`·`scifi` 각각).
+- 아트팩(`assets/char/<컨셉>/<id>.png`)에 파일이 있으면 "완성"으로 봅니다.
+- 로스터엔 있는데 아트팩엔 없는 초상만 골라, 등급(UR·SSR→높음, SR→보통, R·N→낮음)을
+  우선순위로 매겨 과제로 등록합니다. 같은 제목은 건너뜁니다(중복 방지).
+
+```
+로스터 초상 점검 — 이미 있음 28 · 부족 38
+과제 생성 38 · 중복 건너뜀 0
+```
+
 ## 프로젝트 구조
 
 ```
@@ -76,6 +97,8 @@ lib/
   constants.js            상태/우선순위/권한 상수·한글 라벨
 scripts/seed.mjs          초기 데이터 시드
 scripts/import-asset-tasks.mjs  애셋 제작 목록(JSON) → 과제 임포터
+scripts/gen-asset-tasks.mjs     게임 로스터에서 부족한 초상만 자동 과제화(코어시스템→아트팩→과제)
+scripts/task-import.mjs         두 임포터가 공유하는 과제 등록 로직(중복 방지)
 과제관리-실행.bat         윈도우 더블클릭 실행(자동 pull + dev 서버)
 data/app.db               런타임 SQLite 파일 (git 제외)
 ```
