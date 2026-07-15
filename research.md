@@ -35,3 +35,11 @@
 - 결정·근거: 저장은 문서화된 `public/uploads/` 유지(.gitignore가 이미 제외), 서빙만 라우트로 우회(수술적). 업로드 POST 자동구동은 테스트도구의 sameSite=lax 쿠키 제약으로 막히나, 기존 setStatusAction도 동일하게 겪는 하네스 한계라 코드 결함 아님(액션이 파일 745,377바이트 정상 수신 로그로 확인).
 - 결과: next build 성공, 썸네일 표시·이미지 서빙(200)·다운로드·삭제 E2E 통과. 커밋 `e254d54` push.
 - 다음 후보(대기): 게임팩 자동 적용 스크립트(업로드분→게임 경로 복사 + charImages.js 자동 재생성). axdata_01 수정이라 push 허락·브랜치 필요.
+
+## 2026-07-15 — 아트 파이프라인 전체 구조 분석 (게임팩·아트팩·과제관리)
+- 요청: "게임팩 자동 적용 스크립트"가 겹치는지 확인 → 더 깊게 읽고 초보자 수준으로 설명.
+- 진행:
+  - axdata_01 `claude/art-asset-bridge` 브랜치(=main보다 30+커밋 앞선 실질 작업선)를 읽음. 이미 `scripts/sync-art.mjs`(초상)·`scripts/sync-sprites.mjs`(전투 스프라이트)가 존재. 둘 다 "로스터에서 없는 것만 골라 → 아트 스튜디오(axdata_09) API로 생성·회수 → 게임 규격 경로 저장 → charImages.js/unitSprites.js 레지스트리 재생성". npm: `sync-art`, `sync-sprites`, `gen:portraits`. 문서: `docs/ART_BIBLE.md`(캐릭터 제작 명세·프롬프트), `docs/ART_PIPELINE_3D.md`.
+  - axdata_09(아트 스튜디오)를 세션에 추가해 읽음. Python FastAPI 웹앱 "AXData Studio", `http://127.0.0.1:8000`(Windows는 start.bat→_hidden.vbs로 백그라운드). GPT(기획)+Gemini(Nano Banana)/OpenAI gpt-image-1(아트). 키 없으면 Pillow 플레이스홀더 = 데모모드(무비용 배관검증). 26종 아트요소·캐릭터시트·스프라이트시트·VFX·CapCut영상. API: `POST /api/generate`(GenerationRequest→assets[{kind,path,demo}]), `GET /files/{path}`, `/api/generate_batch`(도감 일괄).
+- 결정·근거: "아트팩→게임팩 자동 적용"은 이미 완성(sync-art). 새 apply 스크립트는 중복이고 charImages.js 이중수정 충돌 위험 → 만들지 않음. Gim의 루틴과 실제 매핑: 명세서=ART_BIBLE, 아트생성=axdata_09, 게임적용=sync-art/sprites, 사람작업 추적·업로드=axdata_07.
+- 결과: 저장소 4개 역할 확정. 사람이 과제관리에 올린 아트를 게임에 넣으려면 새 스크립트 없이 "업로드→게임 규격 경로 복사"만 하고 기존 `sync-art --map-only`로 등록하면 됨(대기 옵션).
