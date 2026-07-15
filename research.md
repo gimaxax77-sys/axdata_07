@@ -51,4 +51,4 @@
   - 추가함: axdata_07(소통 규칙 5번, 이 작업 브랜치) · axdata_03(main) · axax77(main).
   - 제외: gax(CLAUDE.md 형식이 달라 소통 규칙 섹션 자체가 없음 — Gim 결정으로 제외).
 - 결정·근거: 저장소마다 CLAUDE.md가 달라 동일 문구 일괄삽입 대신 "감사 후 없는 곳만" 추가. 게임 계열만 대상, gax 제외(Gim 선택).
-- 결과: 게임 계열 전원 규칙 보유. 단 axdata_07은 규칙이 작업 브랜치에만 있고 기본 브랜치(claude/task-management-admin-ury4d0)엔 아직 없음 → 병합 시 반영되거나, 별도 허락 시 기본 브랜치에 직접 추가 가능(대기).
+- 결과: 게임 계열 전원 규칙 보유. axdata_07은 작업 브랜치 + 기본 브랜치(claude/task-management-admin-ury4d0, worktree로 규칙 한 줄만 직접 push) 모두 반영 완료(Gim 허락). gax만 제외.
