@@ -43,3 +43,12 @@
   - axdata_09(아트 스튜디오)를 세션에 추가해 읽음. Python FastAPI 웹앱 "AXData Studio", `http://127.0.0.1:8000`(Windows는 start.bat→_hidden.vbs로 백그라운드). GPT(기획)+Gemini(Nano Banana)/OpenAI gpt-image-1(아트). 키 없으면 Pillow 플레이스홀더 = 데모모드(무비용 배관검증). 26종 아트요소·캐릭터시트·스프라이트시트·VFX·CapCut영상. API: `POST /api/generate`(GenerationRequest→assets[{kind,path,demo}]), `GET /files/{path}`, `/api/generate_batch`(도감 일괄).
 - 결정·근거: "아트팩→게임팩 자동 적용"은 이미 완성(sync-art). 새 apply 스크립트는 중복이고 charImages.js 이중수정 충돌 위험 → 만들지 않음. Gim의 루틴과 실제 매핑: 명세서=ART_BIBLE, 아트생성=axdata_09, 게임적용=sync-art/sprites, 사람작업 추적·업로드=axdata_07.
 - 결과: 저장소 4개 역할 확정. 사람이 과제관리에 올린 아트를 게임에 넣으려면 새 스크립트 없이 "업로드→게임 규격 경로 복사"만 하고 기존 `sync-art --map-only`로 등록하면 됨(대기 옵션).
+
+## 2026-07-15 — "선택형 질문(체크박스)" 규칙 전 저장소 전개
+- 요청: 의사결정·복수 선택지는 항상 선택형(체크박스) 질문으로 띄우는 규칙을 전 저장소에 전개.
+- 진행: 각 저장소 CLAUDE.md 소통 규칙 감사 후 없는 곳만 보강(수술적).
+  - 이미 있음: axdata_01(6번)·axdata_09(5번)·axdata_05(5번).
+  - 추가함: axdata_07(소통 규칙 5번, 이 작업 브랜치) · axdata_03(main) · axax77(main).
+  - 제외: gax(CLAUDE.md 형식이 달라 소통 규칙 섹션 자체가 없음 — Gim 결정으로 제외).
+- 결정·근거: 저장소마다 CLAUDE.md가 달라 동일 문구 일괄삽입 대신 "감사 후 없는 곳만" 추가. 게임 계열만 대상, gax 제외(Gim 선택).
+- 결과: 게임 계열 전원 규칙 보유. 단 axdata_07은 규칙이 작업 브랜치에만 있고 기본 브랜치(claude/task-management-admin-ury4d0)엔 아직 없음 → 병합 시 반영되거나, 별도 허락 시 기본 브랜치에 직접 추가 가능(대기).
