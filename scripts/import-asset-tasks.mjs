@@ -14,11 +14,10 @@
 //   node scripts/import-asset-tasks.mjs <목록.json>
 //
 // 같은 제목의 과제가 이미 있으면 건너뛴다(중복 방지). 등록자는 운영자 계정.
+// (게임 로스터에서 부족한 초상만 자동으로 뽑아 등록하려면 gen-asset-tasks.mjs 참고.)
 
 import fs from 'node:fs';
-import { getDb } from '../lib/db.js';
-
-const PRIORITIES = ['low', 'medium', 'high'];
+import { importAssetTasks } from './task-import.mjs';
 
 const file = process.argv[2];
 if (!file) {
@@ -38,26 +37,5 @@ if (!Array.isArray(items)) {
   process.exit(1);
 }
 
-const db = getDb();
-const creator = db.prepare("SELECT id FROM users WHERE role = 'operator' ORDER BY id LIMIT 1").get();
-const exists = db.prepare('SELECT 1 FROM tasks WHERE title = ?');
-const insert = db.prepare(
-  `INSERT INTO tasks (title, description, status, priority, category, created_by)
-   VALUES (?, ?, 'todo', ?, ?, ?)`
-);
-
-let created = 0;
-let skipped = 0;
-for (const it of items) {
-  const title = String(it.title || '').trim();
-  if (!title) continue;
-  if (exists.get(title)) {
-    skipped++;
-    continue;
-  }
-  const priority = PRIORITIES.includes(it.priority) ? it.priority : 'medium';
-  insert.run(title, String(it.description || ''), priority, String(it.category || '아트'), creator ? creator.id : null);
-  created++;
-}
-
+const { created, skipped } = importAssetTasks(items);
 console.log(`과제 생성 ${created} · 중복 건너뜀 ${skipped}`);
