@@ -39,7 +39,7 @@ npm run build && npm start
 
 ## 애셋 임포터 (게임 제작 목록 → 과제)
 
-게임(`axdata_01`)의 "만들어야 할 애셋 목록(JSON)"을 이 과제 관리 시스템에 과제로 자동 등록하는 연결 다리입니다.
+게임(`axdata_01_eldria`)의 "만들어야 할 애셋 목록(JSON)"을 이 과제 관리 시스템에 과제로 자동 등록하는 연결 다리입니다.
 
 ```bash
 node scripts/import-asset-tasks.mjs <목록.json>
@@ -57,10 +57,10 @@ node scripts/import-asset-tasks.mjs <목록.json>
 ### 로스터 자동 연결 (코어시스템 → 아트팩 → 과제)
 
 목록을 손으로 쓰지 않고, 게임 코어시스템의 **캐릭터 로스터**에서 아직 아트가 없는
-초상만 자동으로 뽑아 과제로 바로 등록합니다. 게임 폴더(`axdata_01`)를 옆에 두고 실행합니다.
+초상만 자동으로 뽑아 과제로 바로 등록합니다. 게임 폴더(`axdata_01_eldria`)를 옆에 두고 실행합니다.
 
 ```bash
-node scripts/gen-asset-tasks.mjs [axdata_01경로]   # 기본값: ../axdata_01
+node scripts/gen-asset-tasks.mjs [게임경로]   # 기본값: ../axdata_01_eldria
 ```
 
 동작 방식은 이렇습니다.
